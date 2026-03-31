@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Muhammad Zain-ul-Abdin — Detailed Profile</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+
+  <!-- Our CSS file -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    .details-page {
+      padding-top: 12rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      margin-bottom: 3rem;
+      opacity: 0.7;
+    }
+
+    .back-btn:hover {
+      opacity: 1;
+    }
+
+    .detail-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .detail-img-container {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* the frame circle background */
+    .detail-frame {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, transparent 50%, var(--accent2) 100%);
+      box-shadow: 0 0 40px rgba(200, 240, 96, 0.15);
+      z-index: 1;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* Wrapper that handles the "Pop Out" masking, locked to the frame circle */
+    .detail-img-mask-wrapper {
+      position: absolute;
+      bottom: 0px;
+      width: 350px;
+      /* Widened to allow full horizontal pop-out unclipped */
+      left: 50%;
+      transform: translateX(-50%);
+      height: 350px;
+      /* tall enough for full pop out */
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      /* Fixed mask: Top rectangle, Bottom circle centered at y=250px */
+      -webkit-mask-image: radial-gradient(circle at 50% 250px, black 100px, transparent 101px),
+        linear-gradient(to bottom, black 250px, transparent 250px);
+      mask-image: radial-gradient(circle at 50% 250px, black 100px, transparent 101px),
+        linear-gradient(to bottom, black 250px, transparent 250px);
+      -webkit-mask-composite: source-over;
+      mask-composite: add;
+    }
+
+    .detail-img {
+      width: 270px;
+      height: auto;
+      object-fit: contain;
+      position: absolute;
+      bottom: -45px;
+      /* Shifting down to fix gap */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* the border circle - shown on top of the image bottom, but clipped at top */
+    .detail-img-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0.8;
+      transition: all 0.5s ease;
+      /* Mask the border to only show the bottom 70% */
+      -webkit-mask-image: linear-gradient(to top, black 70%, transparent 70%);
+      mask-image: linear-gradient(to top, black 70%, transparent 70%);
+    }
+
+    .detail-img-container:hover .detail-frame {
+      box-shadow: 0 0 60px rgba(200, 240, 96, 0.4);
+      transform: translateX(-50%) scale(1.05);
+      border-color: var(--accent);
+    }
+
+    .detail-img-container:hover .detail-img {
+      filter: drop-shadow(0 0 25px rgba(200, 240, 96, 0.5)) brightness(1.1);
+      transform: translateX(-50%) scale(1.08) translateY(-10px);
+    }
+
+    .detail-img-container:hover::after {
+      transform: translateX(-50%) scale(1.05);
+      border-width: 5px;
+      opacity: 0.8;
+    }
+
+    /* This CSS creates a clip that only shows the bottom of the image when it's within the circle area */
+    .detail-img {
+      /* This is the best cross-browser way for the "Pop Out" effect */
+      clip-path: path("M 0,50 L 260,50 L 260,260 L 0,260 Z M 130,250 a 100,100 0 1,0 0.1,0 Z");
+      /* Wait, path is hard. Let's just use the fact that the image is a bust. */
+      clip-path: none;
+    }
+
+    .detail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-m);
+      padding: 3.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .detail-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 0.5rem;
+    }
+
+    .detail-section p {
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: var(--fg-dim);
+    }
+
+    .info-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .info-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .skill-tag {
+      padding: 0.5rem 1rem;
+      background: rgba(200, 240, 96, 0.05);
+      border: 1px solid var(--muted);
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .details-page {
+        padding: 8rem 1.5rem;
+      }
+
+      .detail-card {
+        padding: 2rem;
+      }
+
+      .info-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom cursor elements -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Floating particles background -->
+  <div class="particles" id="particles"></div>
+
+  <nav id="navbar" class="scrolled">
+    <div class="logo">MZ<span>.</span>dev</div>
+    <a href="index.html" class="btn btn-outline" style="font-size: 0.7rem; padding: 0.5rem 1.2rem;">
+      ← Back to Portfolio
+    </a>
+  </nav>
+
+  <main class="details-page">
+
+    <div class="detail-header reveal visible">
+      <div class="detail-img-container">
+        <div class="detail-frame"></div>
+        <div class="detail-img-mask-wrapper">
+          <img src="assets/img/1771781626831-removebg-preview.png" alt="Muhammad Zain-ul-Abdin" class="detail-img">
+        </div>
+      </div>
+      <h1>Muhammad Zain-ul-Abdin</h1>
+      <p style="color: var(--accent); opacity: 0.8; letter-spacing: 0.1em; text-transform: uppercase;">AI & Web
+        Developer</p>
+    </div>
+
+    <div class="detail-card reveal visible">
+      <div class="detail-section">
+        <h2>Personal Profile</h2>
+        <p>
+          I am Muhammad Zain-ul-Abdin, a dedicated AI & Data Science student at Saylani Mass IT Training (SMIT)
+          Faisalabad.
+          With a strong foundation in modern web technologies and a growing expertise in Python and Machine Learning,
+          I focus on building intelligent solutions that combine aesthetic appeal with high performance.
+        </p>
+
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label">Full Name</span>
+            <span class="info-value">Muhammad Zain-ul-Abdin</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Current Role</span>
+            <span class="info-value">AI & Web Developer Student</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Education</span>
+            <span class="info-value">AI & Data Science, SMIT<br>Matriculation, Faisalabad<br>Intermediate,
+              Faisalabad</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Location</span>
+            <span class="info-value">Faisalabad, Pakistan</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Interests</span>
+            <span class="info-value">Artificial Intelligence, Full Stack Dev, Open Source</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Languages</span>
+            <span class="info-value">English, Urdu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-card reveal">
+      <div class="detail-section">
+        <h2>Professional Skills</h2>
+        <p>
+          My technical repertoire spans across frontend development, backend logic, and data analysis.
+          I believe in writing clean, maintainable code and staying updated with the latest industry trends.
+        </p>
+
+        <div class="skill-tags">
+          <span class="skill-tag">Python (Intermediate)</span>
+          <span class="skill-tag">HTML5 & CSS3 (Advanced)</span>
+          <span class="skill-tag">JavaScript / ES6 (Intermediate)</span>
+          <span class="skill-tag">FastAPI & SQL (Exploring)</span>
+          <span class="skill-tag">Git & Version Control</span>
+          <span class="skill-tag">Responsive Web Design</span>
+          <span class="skill-tag">Data Visualization</span>
+          <span class="skill-tag">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-card reveal">
+      <div class="detail-section">
+        <h2>Experience & Goals</h2>
+        <p>
+          Throughout my journey at SMIT, I have developed several practical projects including a Smart QR Menu System
+          for restaurants and a Full Stack Student Management Portal. These experiences have taught me the importance
+          of user-centric design and efficient database management.
+        </p>
+        <p>
+          My immediate goal is to master AI integrations within web applications, bridging the gap between
+          complex machine learning models and intuitive user interfaces. I am actively seeking opportunities
+          to apply my skills in real-world environments and contribute to impactful digital products.
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 4rem; opacity: 0.5; font-size: 0.8rem;">
+      <p>© 2025 Muhammad Zain-ul-Abdin | Built with passion & code.</p>
+    </div>
+
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

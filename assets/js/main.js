@@ -8,8 +8,9 @@
 const cursor     = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursorRing');
 
-let mouseX = 0, mouseY = 0;
-let ringX  = 0, ringY  = 0;
+if (cursor && cursorRing) {
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
 
 // Check if device supports hover (not touch)
 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -49,6 +50,7 @@ if (!isTouchDevice) {
 
   animateCursor();
 }
+}
 
 
 // -------- PARTICLES --------
@@ -78,6 +80,7 @@ createParticles();
 
 // -------- TYPING EFFECT --------
 const typingElement = document.getElementById('typingText');
+if (typingElement) {
 const roles = [
   'Web Developer',
   'Python Programmer',
@@ -123,28 +126,31 @@ function typeEffect() {
   setTimeout(typeEffect, typingSpeed);
 }
 
-// Start typing after a delay
-setTimeout(typeEffect, 1500);
+  // Start typing after a delay
+  setTimeout(typeEffect, 1500);
+}
 
 
 // -------- HAMBURGER MENU --------
 const hamburger = document.getElementById('hamburger');
 const navMenu   = document.getElementById('navMenu');
 
-hamburger.addEventListener('click', function() {
-  hamburger.classList.toggle('active');
-  navMenu.classList.toggle('open');
-  document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
-});
-
-// Close menu when a link is clicked
-navMenu.querySelectorAll('a').forEach(function(link) {
-  link.addEventListener('click', function() {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('open');
-    document.body.style.overflow = '';
+if (hamburger && navMenu) {
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('open');
+    document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
   });
-});
+
+  // Close menu when a link is clicked
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
 
 
 // -------- NAVBAR SCROLL EFFECTS --------
@@ -156,42 +162,50 @@ window.addEventListener('scroll', function() {
   const scrollY = window.scrollY;
 
   // Navbar background on scroll
-  if (scrollY > 80) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
+  if (navbar) {
+    if (scrollY > 80) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
   }
 
   // Show/hide scroll-to-top button
-  if (scrollY > 500) {
-    scrollTopBtn.classList.add('visible');
-  } else {
-    scrollTopBtn.classList.remove('visible');
+  if (scrollTopBtn) {
+    if (scrollY > 500) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
   }
 
   // Active nav link based on scroll position
-  sections.forEach(function(section) {
-    const sectionTop = section.offsetTop - 150;
-    const sectionHeight = section.offsetHeight;
-    const sectionId = section.getAttribute('id');
+  if (sections.length > 0) {
+    sections.forEach(function(section) {
+      const sectionTop = section.offsetTop - 150;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
 
-    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-      document.querySelectorAll('nav a').forEach(function(a) {
-        a.classList.remove('active');
-      });
-      const activeLink = document.querySelector('nav a[href="#' + sectionId + '"]');
-      if (activeLink) {
-        activeLink.classList.add('active');
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        document.querySelectorAll('nav a').forEach(function(a) {
+          a.classList.remove('active');
+        });
+        const activeLink = document.querySelector('nav a[href="#' + sectionId + '"]');
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
       }
-    }
-  });
+    });
+  }
 });
 
 
 // -------- SCROLL TO TOP --------
-scrollTopBtn.addEventListener('click', function() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 
 // -------- SCROLL REVEAL --------
