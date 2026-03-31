@@ -515,6 +515,7 @@ h1 em {
 .about-standing-wrapper {
   position: relative;
   width: min(450px, 100%);
+  margin-top: -40px; /* Moved slightly upwards as requested */
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
