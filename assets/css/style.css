@@ -1452,9 +1452,7 @@ footer {
   }
 
   @media (max-width: 500px) {
-    h1 br {
-      display: none;
-    }
+    /* Kept intentionally empty to override previous hidden br if needed, but safe to just remove the internal rule */
   }
 
   .hero-sub {
