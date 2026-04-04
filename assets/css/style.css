@@ -1244,19 +1244,28 @@ cite {
   width: 18px;
   height: 18px;
   object-fit: contain;
-  /* Making icons light by default for the dark theme */
-  filter: invert(1); 
+  /* Making icons white by default for the dark theme */
+  filter: brightness(0) invert(1); 
   transition: all 0.3s ease;
 }
 
 .contact-link:hover .contact-link-icon img {
-  /* Common hover color: Theme Accent (#c8f060) */
-  /* Using sepia/hue-rotate instead of brightness(0) to keep details like 'in' text visible */
-  filter: sepia(1) hue-rotate(25deg) saturate(1000%) brightness(120%);
+  /* On hover, match the accent color (#c8f060) */
+  filter: brightness(0) saturate(100%) invert(86%) sepia(21%) saturate(1008%) hue-rotate(24deg) brightness(101%) contrast(97%);
+}
+
+#linkedinLink .contact-link-icon img {
+  /* SPECIAL CASE: Inverting but NOT zero-ing brightness to keep 'in' text visible */
+  filter: invert(1);
+}
+
+#linkedinLink:hover .contact-link-icon img {
+  /* Match theme but preserve transparency */
+  filter: invert(86%) sepia(21%) saturate(1008%) hue-rotate(24deg) brightness(101%) contrast(97%);
 }
 
 #whatsappLink:hover .contact-link-icon img {
-  /* WhatsApp natural green hover (overrides common lime green) */
+  /* WhatsApp original green */
   filter: none;
 }
 
