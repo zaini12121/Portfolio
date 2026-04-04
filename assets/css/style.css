@@ -1215,18 +1215,16 @@ cite {
 }
 
 .contact-link {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #4a7050;
-  text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.6rem 1.4rem;
-  transition: all 0.3s ease;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background: rgba(200, 240, 96, 0.02);
 }
 
 .contact-link:hover {
@@ -1237,7 +1235,29 @@ cite {
 }
 
 .contact-link-icon {
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-link-icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  /* Making icons white by default for the dark theme */
+  filter: brightness(0) invert(1); 
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover .contact-link-icon img {
+  /* Common hover color: Theme Accent (#c8f060) */
+  /* Starting from black first to ensure color consistency */
+  filter: brightness(0) saturate(100%) invert(86%) sepia(21%) saturate(1008%) hue-rotate(24deg) brightness(101%) contrast(97%);
+}
+
+#whatsappLink:hover .contact-link-icon img {
+  /* WhatsApp natural green hover (overrides common lime green) */
+  filter: none;
 }
 
 /* ---------- FOOTER ---------- */
@@ -1559,8 +1579,8 @@ footer {
   }
 
   .contact-link {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.65rem;
+    width: 44px;
+    height: 44px;
   }
 
   #contact h2 {
