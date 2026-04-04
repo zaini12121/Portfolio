@@ -1244,15 +1244,15 @@ cite {
   width: 18px;
   height: 18px;
   object-fit: contain;
-  /* Making icons white by default for the dark theme */
-  filter: brightness(0) invert(1); 
+  /* Making icons light by default for the dark theme */
+  filter: invert(1); 
   transition: all 0.3s ease;
 }
 
 .contact-link:hover .contact-link-icon img {
   /* Common hover color: Theme Accent (#c8f060) */
-  /* Starting from black first to ensure color consistency */
-  filter: brightness(0) saturate(100%) invert(86%) sepia(21%) saturate(1008%) hue-rotate(24deg) brightness(101%) contrast(97%);
+  /* Using sepia/hue-rotate instead of brightness(0) to keep details like 'in' text visible */
+  filter: sepia(1) hue-rotate(25deg) saturate(1000%) brightness(120%);
 }
 
 #whatsappLink:hover .contact-link-icon img {
