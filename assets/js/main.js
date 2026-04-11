@@ -3,6 +3,30 @@
 // main.js — Complete JavaScript
 // ================================
 
+// -------- PRELOADER --------
+window.addEventListener('load', function() {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    // Lock scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Hide preloader after 7.5 seconds
+    setTimeout(function() {
+      preloader.classList.add('fade-out');
+      document.body.style.overflow = '';
+      
+      // Trigger scroll reveals after preloader is gone
+      const revealElements = document.querySelectorAll('.reveal');
+      revealElements.forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+              el.classList.add('visible');
+          }
+      });
+    }, 7500);
+  }
+});
+
+
 
 // -------- CUSTOM CURSOR --------
 const cursor     = document.getElementById('cursor');
@@ -375,3 +399,4 @@ window.addEventListener('load', function() {
     document.body.style.opacity = '1';
   });
 });
+
